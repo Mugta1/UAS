@@ -6,5 +6,9 @@ canny= cv.Canny(img, 125, 175)
 dilated=cv.dilate(canny, (11,11), iterations=1)
 
 contour, heirarchies= cv.findContours(dilated, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
+print(heirarchies)
+
+
+print (contours)
 
 cv.waitKey(0)

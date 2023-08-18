@@ -8,4 +8,5 @@ med=cv.medianBlur(img, 3)
 cv.imshow('med', med)
 bi=cv.bilateralFilter(img, 50, 50, 50)
 cv.imshow('bi', bi)
+##bilateral is the best imo.
 cv.waitKey(0)

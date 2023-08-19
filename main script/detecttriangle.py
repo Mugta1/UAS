@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-img=cv.imread("photos/11.png")
+img=cv.imread("photos/3.png")
 
 bi=cv.bilateralFilter(img, 50, 100, 100)
 cv.imshow('c',bi)

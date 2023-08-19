@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-img=cv.imread('photos/1.png')
+img=cv.imread('photos/3.png')
 cv.imshow('img', img)
 avg= cv.blur(img, (5,5))
 cv.imshow('avg', avg)

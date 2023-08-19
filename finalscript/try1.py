@@ -2,10 +2,6 @@ import cv2 as cv
 import numpy as np
 img=cv.imread('photos/3.png')
 
-
-##creating a layer of just houses(separated by blue and red)
-
-
 bi=cv.bilateralFilter(img, 50, 100 ,100)
 b,g,r= cv.split(bi)
 retr, threshb=cv.threshold(b, 128, 255, cv.THRESH_BINARY_INV)

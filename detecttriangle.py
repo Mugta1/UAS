@@ -7,7 +7,7 @@ cv.imshow('c',bi)
 
 canny=cv.Canny(bi, 125,175)
 blur=cv.GaussianBlur(canny, (3,3), cv.BORDER_DEFAULT)
-contour, heirarchies= cv.findContours(blur, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+contour, heirarchies = cv.findContours(blur, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 n=len(contour)
 cv.imshow('canny', blur)
 print(n)

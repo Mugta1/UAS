@@ -1,0 +1,23 @@
+import cv2 as cv
+import numpy as np
+img=cv.imread('photos/ref.png')
+cv.imshow('og', img)
+bi=cv.bilateralFilter(img, 50, 200, 200)
+cv.imshow('c',bi)
+blur=cv.GaussianBlur(bi, (3,3), cv.BORDER_DEFAULT)
+cv.imshow('blur', blur)
+canny=cv.Canny(blur, 125,175)
+contour, heirarchies = cv.findContours(canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+n=len(contour)
+cv.imshow('canny', canny)
+b,g,r= cv.split(img)
+cv.imshow('og', img)
+cv.imshow('blue', b)
+cv.imshow('green', g)
+cv.imshow("red", r)
+blank=np.zeros(img.shape[:2], dtype='uint8')
+m=cv.merge([blank, g, canny])
+cv.imshow('m', m)
+
+print(n)
+cv.waitKey(0)

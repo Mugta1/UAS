@@ -40,7 +40,7 @@ common_mask = cv.bitwise_and(burntmask_resized, threshr_resized)
 
 # Display the common regions
 cv.imshow('Common Regions', common_mask)
-
+##this is the error-d region, bitwise_and is giving union instead of intersection.
 
 
 cv.waitKey(0)

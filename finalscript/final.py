@@ -4,6 +4,8 @@ second=[]
 third=[]
 fourth=[]
 dictxyz={}
+
+imglist=['photos/1.png','photos/2.png', 'photos/3.png','photos/4.png','photos/5.png','photos/6.png','photos/7.png','photos/8.png','photos/10.png','photos/11.png']
 #function for color change as asked in 1st question
 def colorchange(i):
     img = cv.imread(i)
@@ -19,7 +21,6 @@ def colorchange(i):
     blue_color = np.array([120, 255, 255])
     img[np.where(green_mask)] = blue_color
     result_img = cv.cvtColor(img, cv.COLOR_HSV2BGR)
-    blur=cv.bilateralFilter(result_img, 100,100,100)
     cv.imshow('Edited img', result_img)
     cv.waitKey(0)
 
@@ -85,7 +86,7 @@ def values(i):
     PG=(RG*1)+(BG*2)
     #priority ratio
     PR=PF/PG
-
+    #appending the values to lists and dictionaries for output
     second.append([HF, HG])
     third.append([PF, PG])
     fourth.append(PR)
@@ -97,22 +98,16 @@ def values(i):
 def final(i):
     colorchange(i)
     values(i)
+    cv.destroyAllWindows()
 
-
-
-final('photos/1.png')
-final('photos/2.png')
-final('photos/3.png')
-final('photos/4.png')
-final('photos/5.png')
-
-
+#arranging the keys (for fifth part)
+sorted = sorted(dictxyz, key=dictxyz.get, reverse=True)
+#starting the function
+for i in imglist:
+    final(i)
+#printing the results
 print(second)
 print(third)
 print(fourth)
-print(dictxyz)
-
-sorted = sorted(dictxyz, key=dictxyz.get, reverse=True)
-
 print(sorted)
 

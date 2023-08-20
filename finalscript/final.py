@@ -1,8 +1,8 @@
 import cv2 as cv
 import numpy as np
-two=[]
-three=[]
-four=[]
+second=[]
+third=[]
+fourth=[]
 dictxyz={}
 #function for color change as asked in 1st question
 def colorchange(i):
@@ -20,7 +20,6 @@ def colorchange(i):
     img[np.where(green_mask)] = blue_color
     result_img = cv.cvtColor(img, cv.COLOR_HSV2BGR)
     blur=cv.bilateralFilter(result_img, 100,100,100)
-    cv.imwrite('edited_img.jpg', blur)
     cv.imshow('Edited img', result_img)
     cv.waitKey(0)
 
@@ -87,9 +86,9 @@ def values(i):
     #priority ratio
     PR=PF/PG
 
-    two.append([HF, HG])
-    three.append([PF, PG])
-    four.append(PR)
+    second.append([HF, HG])
+    third.append([PF, PG])
+    fourth.append(PR)
     dictxyz[i]=PR
 
 
@@ -108,9 +107,9 @@ final('photos/4.png')
 final('photos/5.png')
 
 
-print(two)
-print(three)
-print(four)
+print(second)
+print(third)
+print(fourth)
 print(dictxyz)
 
 sorted = sorted(dictxyz, key=dictxyz.get, reverse=True)

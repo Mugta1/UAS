@@ -55,7 +55,7 @@ def values(i):
     cannygrass=cv.Canny(greenmask, 125, 175 )
     cannyr=cv.Canny(threshr, 125, 175)
     cannyb=cv.Canny(threshb, 125, 175)
-
+    #common cannys
     commonrg=cv.bitwise_and(cannygrass, cannyr)
     commonbg=cv.bitwise_and(cannyb, cannygrass)
     ##calculating the number of blue and red houses
@@ -78,59 +78,28 @@ def values(i):
     #number of blue houses on fire
     BF=TB - BG
 
-    ##printing the number of houses
-    valuelist=[RF, BF, RG, BG]
-    return valuelist
+    #total houses on fire
+    HF=RF+BF
+    #total houses on grass
+    HG=RG+BG
+    #priority of house on fire
+    PF= (RF*1)+(BF*2)
+    #priority of house on grass
+    PG=(RG*1)+(BG*2)
+    #priority ratio
+    PR=PF/PG
 
-
-def output(imglist):
-    for i in imglist:
-        final=values(i)
-        #number of red houses on fire
-        rf=final[0]
-        #number of blue houses on fire
-        bf=final[1]
-        #number of red houses not on fire
-        rg=final[2]
-        #number of blue houses not on fire
-        bg=final[3]
-        name=i ##a passed as name of file in parameter of the function
-        Hb=rf+bf
-        Hg=rg+bg
-        imglist2=[Hb, Hg]
-        Pb=rf*1+bf*2
-        Pg=rg*1+bg*2
-        imglist3=[Pb, Pg]
-        Pr=Pb/Pg
-        results=[name, imglist2, imglist3, Pr]
-        return results
-def collectoutput(imglist):
-    for i in imglist:
-        x=output(i)
-        two.append(x[1])
-        three.append(x[2])
-        four.append(x[3])
-        dict[x[0]]=x[3]
-        
-print(dict) 
-
-colorchange(imglist)
-collectoutput(imglist)
-print('2. ', two)
-print('3. ', three)
-print('4. ', four)
-# Sorting the dictionary keys by values in descending order
-sorted_keys = sorted(dict.keys(), key=lambda key: dict[key], reverse=True)
-for key in sorted_keys:
-    print(key)
-
-def allcode(imglist):
-    colorchange(imglist)
-    collectoutput(imglist)
-
+    two.append([HF, HG])
+    three.append([PF, PG])
+    four.append(PR)
     
 
 
+
+
+print(two)
+print(three)
+print(four)
     
 
 

@@ -100,14 +100,16 @@ def final(i):
     values(i)
     cv.destroyAllWindows()
 
-#arranging the keys (for fifth part)
-sorted = sorted(dictxyz, key=dictxyz.get, reverse=True)
+
 #starting the function
 for i in imglist:
     final(i)
+
+#arranging the keys (for fifth part)
+sortedkeys = sorted(dictxyz, key=dictxyz.get, reverse=True)
 #printing the results
 print(second)
 print(third)
 print(fourth)
-print(sorted)
+print(sortedkeys)
 

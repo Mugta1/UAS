@@ -19,7 +19,6 @@ def colorchange(i):
     blue_color = np.array([120, 255, 255])
     img[np.where(green_mask)] = blue_color
     result_img = cv.cvtColor(img, cv.COLOR_HSV2BGR)
-    blur=cv.bilateralFilter(result_img, 100,100,100)
     cv.imshow('Edited img', result_img)
     cv.waitKey(0)
 

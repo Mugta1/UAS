@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
-img=cv.imread('photos/3.png')
+img=cv.imread('photos/11.png')
+cv.imshow('og', img)
 
 bi=cv.bilateralFilter(img, 100, 100 ,100)
 b,g,r= cv.split(bi)
@@ -27,36 +28,23 @@ greenmask=cv.morphologyEx(greenmask, cv.MORPH_CLOSE, kernel)
 burntmask=cv.bitwise_not(burntmask)
 greenmask=cv.bitwise_not(greenmask)
 burntmask=cv.GaussianBlur(burntmask, (17,17), 0)
+cannybr=cv.GaussianBlur(burntmask, (7,7), cv.BORDER_DEFAULT)
 cannygr=cv.Canny(greenmask, 125, 175 )
-cannybr=cv.Canny(burntmask, 125, 175)
+cannybr=cv.Canny(cannybr, 125, 175)
 cannyr=cv.Canny(threshr, 125, 175)
 cannyb=cv.Canny(threshb, 125, 175)
+
 commonrg=cv.bitwise_and(cannygr, cannyr)
 commonrb=cv.bitwise_and(cannybr, cannyr)
 
-cv.imshow('cannyg', cannygr)
-cv.imshow('cannyr', cannyr)
+""" cv.imshow('cannyb', cannyb)
 cv.imshow('cannybr', cannybr)
-cv.imshow('cannyb', cannyb)
 cv.imshow('commonrg', commonrg)
-cv.imshow('commonrb', commonrb)
-commonrb=cv.dilate(commonrb, (501,501), iterations=1)
-commonrb=cv.bilateralFilter(commonrb, 100, 100,100)
-cv.imshow('final', commonrb)
-contour, heirarchies = cv.findContours(commonrb, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-blank=np.zeros(img.shape[:2], dtype='uint8')
-cv.imshow('balnk', blank)
-
-cv.drawContours(blank, contour, -1, (0, 255, 0), 3)
-# Display the image with completed lines
-cv.imshow("Image with Completed Lines", blank)
-
-
-
-# Display the common regions
-
-
-
-
-
+cv.imshow('cannyr', cannyr)
+cv.imshow('commonrb', commonrb) """
+commonrb=cv.dilate(commonrg, (501,501), iterations=1)
+contour, heirarchies = cv.findContours(commonrg, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+n=(len(contour))/3
+#cv.imshow('final', commonrg)
+print(n)
 cv.waitKey(0)

@@ -33,13 +33,13 @@ def values(i):
     retr, threshb=cv.threshold(b, 128, 255, cv.THRESH_BINARY)
     retr, threshr=cv.threshold(r, 128, 255, cv.THRESH_BINARY)
 
-    #create masks for burnt and unburnt area
+    #create masks for unburnt area
 
     hsv=cv.cvtColor(bi, cv.COLOR_BGR2HSV)
     LG=np.array([35,50,50])
     UG=np.array([85,255,255])
 
-    #values of hsv used above were taken from findinghsv.py under meainscript folder in the repo
+    #values of hsv used above were taken from findinghsv.py under miscscript folder in the repo
     #making masks
     greenmask=cv.inRange(hsv, LG, UG)
 

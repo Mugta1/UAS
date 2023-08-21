@@ -108,8 +108,8 @@ for i in imglist:
 #arranging the keys (for fifth part)
 sortedkeys = sorted(dictxyz, key=dictxyz.get, reverse=True)
 #printing the results
-print(second)
-print(third)
-print(fourth)
-print(sortedkeys)
+print('2.', second)
+print('3.',  third)
+print('4.', fourth)
+print('5.',sortedkeys)
 

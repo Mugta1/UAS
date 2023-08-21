@@ -104,6 +104,7 @@ def final(i):
 #starting the function
 for i in imglist:
     final(i)
+    
 
 #arranging the keys (for fifth part)
 sortedkeys = sorted(dictxyz, key=dictxyz.get, reverse=True)

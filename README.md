@@ -148,3 +148,11 @@ The script will:
 ## Conclusion
 
 This project demonstrates the application of advanced image processing techniques to analyze and prioritize houses based on their condition (on fire or on grass). The structured output provides valuable insights for effective crisis management, ensuring that houses on fire are addressed with the appropriate priority. This systematic approach is backed by comprehensive image analysis, making it robust for real-world applications.
+
+##Acknowledgements
+
+We would like to thank the contributors and maintainers of the OpenCV and NumPy libraries, whose efforts have made this project possible. Special thanks to the community for providing valuable feedback and support throughout the development of this project.
+
+##License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

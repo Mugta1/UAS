@@ -6,7 +6,7 @@ videos-> audio visual data used to learn cv2, irrelevant to the task.
 final script-> contains final.py, that is, the final script for the project mentioned below
 
 
-# Project ReadMe
+# README
 
 ## Overview
 

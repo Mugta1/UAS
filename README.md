@@ -1,158 +1,148 @@
-A guide to this repository 
-learning cv2- > contains all the codes written during the learning of cv2 library and numpy library 
-misc-> contains codes that define functions that I have finally used in the final script.
-photos-> contains all the photo data provided + some other data i used to make my program run (color images to find the hsv value of the colros for masking purposes, etc.)
-videos-> audio visual data used to learn cv2, irrelevant to the task.
-final script-> contains final.py, that is, the final script for the project mentioned below
+# Fire and House Priority Detection using OpenCV
 
+## Index
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Prerequisites](#prerequisites)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Script Explanation](#script-explanation)
+    - [colorchange(i)](#colorchangei)
+    - [values(i)](#valuesi)
+    - [final(i)](#finali)
+7. [Output](#output)
+8. [Example](#example)
+9. [License](#license)
+10. [Acknowledgements](#acknowledgements)
 
-# README
+## Introduction
 
-## Overview
+This project focuses on detecting and prioritizing red and blue houses in aerial images, distinguishing between those that are on fire (brown areas) and those that are safe on grass (green areas). Using OpenCV and Python, the program processes images to highlight areas of interest, classify the houses, and assign rescue priorities based on their color and condition. Blue houses have a higher priority than red ones, with an added emphasis on those that are on fire.
 
-This project focuses on advanced image processing techniques to analyze the condition of houses in a given set of images. The code applies sophisticated color transformations, image filtering, and contour detection algorithms to compute various metrics related to the state of the houses (e.g., on fire, on grass). The results are utilized to determine the priority for addressing houses on fire, providing a systematic approach to crisis management.
+## Features
+- **Color Change**: Converts brown areas to yellow and green areas to blue in the provided images for better visualization.
+- **House Detection and Classification**: Detects houses and classifies them based on color (red or blue) and state (on fire or on grass).
+- **Priority Calculation**: Assigns rescue priorities based on the number and condition of the houses.
+- **Sorting**: Sorts the images based on the calculated rescue priority for efficient response planning.
 
 ## Prerequisites
-
-Ensure you have the following dependencies installed before running the code:
-
 - Python 3.x
-- OpenCV (`cv2`) library
-- NumPy library
+- OpenCV
+- NumPy
 
-You can install the required libraries using the following commands:
-
-```bash
-pip install opencv-python
-pip install numpy
-```
-
-## Input Data
-
-The program processes a list of image file paths. The images should be located in a directory named `photos`.
-
-## Code Description
-
-### Functions
-
-1. **colorchange(i)**
-
-   This function performs targeted color transformations within the image:
-   - Converts brown areas (indicative of burnt regions) to yellow.
-   - Converts green areas (indicative of grass) to blue.
-
-   The transformation leverages the HSV color space for accurate color thresholding:
-   - Brown areas: Defined by HSV ranges `[10, 50, 50]` to `[30, 255, 255]`.
-   - Green areas: Defined by HSV ranges `[35, 50, 50]` to `[85, 255, 255]`.
-
-   The modified image is then displayed using OpenCV.
-
-2. **values(i)**
-
-   This function executes a series of image processing steps to identify and quantify houses:
-   - Applies a bilateral filter to reduce noise while preserving edges.
-   - Splits the image into its blue, green, and red channels.
-   - Creates binary thresholds for the blue and red channels to isolate houses.
-   - Constructs a mask for green areas (unburnt grass) using HSV color space thresholds.
-   - Identifies contours for houses based on color segmentation:
-     - Red for houses on fire.
-     - Blue for houses not on fire.
-   - Computes the number of houses on fire, houses on grass, and their respective priorities:
-     - `HF` (Houses on Fire)
-     - `HG` (Houses on Grass)
-     - `PF` (Priority of Fire)
-     - `PG` (Priority of Grass)
-     - `PR` (Priority Ratio)
-
-   Results are stored in global lists and a dictionary for further analysis.
-
-3. **final(i)**
-
-   This function integrates `colorchange` and `values` to process each image in the list. It ensures proper handling of OpenCV windows.
-
-### Main Script
-
-The main script iterates over a predefined list of image file paths, invoking the `final(i)` function for each image. After processing all images, it sorts the results based on the computed priority ratios and prints the comprehensive results.
-
-## Output
-
-The output consists of several technical metrics printed to the console:
-
-1. **List of houses on fire and houses on grass for each image:**
-
-   ```python
-   [[HF1, HG1], [HF2, HG2], ..., [HFn, HGn]]
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Mugta1/UAS-1.git
+   cd UAS-1
    ```
 
-2. **List of priority values for houses on fire and houses on grass for each image:**
-
-   ```python
-   [[PF1, PG1], [PF2, PG2], ..., [PFn, PGn]]
+2. Install the required libraries:
+   ```bash
+   pip install numpy opencv-python
    ```
-
-3. **List of priority ratios for each image:**
-
-   ```python
-   [PR1, PR2, ..., PRn]
-   ```
-
-4. **Sorted list of image file paths based on priority ratio in descending order:**
-
-   ```python
-   ['photos/2.png', 'photos/
-
-1.png', ..., 'photos/10.png']
-   ```
-
-Where:
-- `HF` (Houses on Fire)
-- `HG` (Houses on Grass)
-- `PF` (Priority of Fire)
-- `PG` (Priority of Grass)
-- `PR` (Priority Ratio)
 
 ## Usage
+1. Place your images in the `photos` directory.
+2. Run the script:
+   ```bash
+   python final.py
+   ```
 
-To execute the script, run the Python file in your environment. Ensure that the images are correctly placed in the `photos` directory.
+## Script Explanation
 
-```bash
-python script.py
-```
+### `colorchange(i)`
+- **Purpose**: Modifies the colors in the image to enhance visualization by converting brown areas to yellow and green areas to blue.
+- **Parameters**: 
+  - `i`: Path to the input image.
+- **Process**:
+  1. Reads the image and converts it from BGR to HSV color space.
+  2. Creates masks to detect brown and green areas using predefined HSV color ranges.
+  3. Changes the color of detected brown areas to yellow and green areas to blue.
+  4. Converts the modified HSV image back to BGR color space.
+  5. Displays the edited image using OpenCV's `imshow` function.
 
-The script will process each image, apply the necessary color changes, compute the required metrics, and display the results.
+### `values(i)`
+- **Purpose**: Detects houses, determines if they are on fire or not, and calculates various metrics related to house priority for rescue.
+- **Parameters**: 
+  - `i`: Path to the input image.
+- **Process**:
+  1. Reads the image and applies a bilateral filter for noise reduction.
+  2. Splits the image into its BGR components and applies binary thresholding.
+  3. Creates a mask to detect green areas, representing unburnt regions.
+  4. Performs morphological transformations on the green mask and inverts it to identify non-green areas.
+  5. Uses the Canny edge detector to find edges in the green mask and thresholded images.
+  6. Identifies contours in the edge-detected images to count the number of red and blue houses.
+  7. Calculates the number of red and blue houses on fire and on grass.
+  8. Computes total houses on fire, total houses on grass, and assigns rescue priorities.
+  9. Appends the calculated values to respective lists and dictionaries for further use.
 
-## Detailed Example
 
-Given a list of images:
+### `final(i)`
+- **Purpose**: Combines the `colorchange` and `values` functions to fully process each image.
+- **Parameters**: 
+  - `i`: Path to the input image.
+- **Process**:
+  1. Calls the `colorchange` function to modify the colors in the image.
+  2. Calls the `values` function to detect houses and calculate metrics.
+  3. Closes all OpenCV windows after processing.
+- **Code**:
+  ```python
+  def final(i):
+      colorchange(i)
+      values(i)
+      cv.destroyAllWindows()
+  ```
 
+### Main Script
+- **Process**:
+  1. Defines a list of image paths to be processed.
+  2. Iterates over each image path, calling the `final` function to process each image.
+  3. Sorts the images based on the priority ratios calculated in the `values` function.
+  4. Prints the results for total houses on fire and on grass, priority values, priority ratios, and the sorted list of image paths.
+- **Code**:
+  ```python
+  imglist = ['photos/1.png', 'photos/2.png', 'photos/3.png', 'photos/4.png', 'photos/5.png', 
+             'photos/6.png', 'photos/7.png', 'photos/8.png', 'photos/10.png', 'photos/11.png']
+
+  for i in imglist:
+      final(i)
+
+  sortedkeys = sorted(dictxyz, key=dictxyz.get, reverse=True)
+  print('2.', second)
+  print('3.', third)
+  print('4.', fourth)
+  print('5.', sortedkeys)
+  ```
+
+## Output
+- **Second Output**: List of total houses on fire and on grass for each image.
+- **Third Output**: List of priority values for houses on fire and on grass for each image.
+- **Fourth Output**: List of priority ratios for each image.
+- **Fifth Output**: Sorted list of image paths based on the priority ratios.
+
+## Example
 ```python
-imglist = ['photos/1.png', 'photos/2.png', 'photos/3.png', 'photos/4.png', 'photos/5.png', 'photos/6.png', 'photos/7.png', 'photos/8.png', 'photos/10.png', 'photos/11.png']
+# Output Example
+2. [[1, 2], [2, 3], ...]
+3. [[1, 4], [3, 
+
+5], ...]
+4. [0.5, 0.6, ...]
+5. ['photos/2.png', 'photos/5.png', ...]
+
 ```
+## Contributions
 
-The script will:
+Feel free to contribute to this project by forking the repository and submitting pull requests!
 
-1. Apply the color transformations to highlight specific areas (burnt regions to yellow, grass to blue).
-2. Perform image processing to detect and count houses:
-   - Identify red houses (indicative of being on fire).
-   - Identify blue houses (indicative of being safe).
-   - Determine the number of houses on grass and on fire.
-   - Compute priority metrics to assist in crisis management.
-3. Output the results in a structured format, including sorted priorities for targeted intervention.
+## License
 
-## Implementation Notes
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/Mugta1/UAS-1/blob/main/LICENSE) file for details.
 
-- Ensure images are in the correct format and located in the specified directory.
-- The HSV color thresholds used for color detection are based on empirical values and may require adjustments for different datasets.
-- OpenCV windows displaying the processed images need to be manually closed to proceed.
+## Acknowledgements
+- **OpenCV**: For providing extensive documentation and tutorials which were instrumental in developing the image processing components of this project.
+- **NumPy**: For its powerful array manipulation capabilities which facilitated the handling of image data.
+- **Python**: For being the versatile programming language that made this project possible.
 
-## Conclusion
 
-This project demonstrates the application of advanced image processing techniques to analyze and prioritize houses based on their condition (on fire or on grass). The structured output provides valuable insights for effective crisis management, ensuring that houses on fire are addressed with the appropriate priority. This systematic approach is backed by comprehensive image analysis, making it robust for real-world applications.
-
-##Acknowledgements
-
-We would like to thank the contributors and maintainers of the OpenCV and NumPy libraries, whose efforts have made this project possible. Special thanks to the community for providing valuable feedback and support throughout the development of this project.
-
-##License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
